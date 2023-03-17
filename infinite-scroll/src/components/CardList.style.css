@@ -1,17 +1,23 @@
 .card_list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
 }
 
 .card {
-  flex-basis: 30%;
+  width: 200px;
+  height: 250px;
   margin: 10px;
   padding: 20px;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.05);
 }
 
 .card img {

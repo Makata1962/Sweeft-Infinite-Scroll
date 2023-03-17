@@ -1,10 +1,13 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-const useUserFetch = (userId) => {
+const useUserFetch = (userId, pageNumber) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [hasMore, setHasMore] = useState(false);
   const [user, setUser] = useState(null);
+  const [friends, setFriends] = useState([]);
+  console.log(userId, "userId", pageNumber, "pageNumber");
 
   useEffect(() => {
     setLoading(true);
@@ -14,7 +17,6 @@ const useUserFetch = (userId) => {
         `http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com/user/${userId}`
       )
       .then((res) => {
-        console.log(res.data, "response data from USERFETCH");
         setUser(res.data);
         setLoading(false);
       })
@@ -22,9 +24,25 @@ const useUserFetch = (userId) => {
         setError(true);
         setLoading(false);
       });
-  }, [userId]);
 
-  return { loading, error, user };
+    axios
+      .get(
+        `http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com/user/${userId}/friends/${pageNumber}/10`
+      )
+      .then((res) => {
+        setHasMore(res.data.list.length > 0);
+        setLoading(false);
+        setFriends((prevFriends) => {
+          return [...new Set([...prevFriends, ...res.data.list])];
+        });
+      })
+      .catch((e) => {
+        setError(true);
+        setLoading(false);
+      });
+  }, [userId, pageNumber]);
+
+  return { loading, error, user, friends, hasMore };
 };
 
 export default useUserFetch;

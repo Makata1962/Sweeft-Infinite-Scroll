@@ -1,6 +1,7 @@
 import React, { useState, useRef, useCallback } from "react";
 import "./CardList.style.css";
-import useFetch from "./hooks/useFetch";
+import useFetch from "../hooks/useFetch";
+import { Link } from "react-router-dom";
 
 const CardList = () => {
   const [pageNumber, setPageNumber] = useState(1);
@@ -27,19 +28,23 @@ const CardList = () => {
       {cards.map((card, index) => {
         if (cards.length === index + 1) {
           return (
-            <div ref={lastCardElementRef} className="card" key={index}>
-              <img src={card.imageUrl} alt={card.title} />
-              <h3>{card.title}</h3>
-              <p>{card.description}</p>
-            </div>
+            <Link to={`/user/${card.id}`} key={index}>
+              <div ref={lastCardElementRef} className="card" key={index}>
+                <img src={card.imageUrl} alt={card.title} />
+                <h3>{card.title}</h3>
+                <p>{card.description}</p>
+              </div>
+            </Link>
           );
         } else {
           return (
-            <div className="card" key={index}>
-              <img src={card.imageUrl} alt={card.title} />
-              <h3>{card.title}</h3>
-              <p>{card.description}</p>
-            </div>
+            <Link to={`/user/${card.id}`} key={index}>
+              <div className="card" key={index}>
+                <img src={card.imageUrl} alt={card.title} />
+                <h3>{card.title}</h3>
+                <p>{card.description}</p>
+              </div>
+            </Link>
           );
         }
       })}

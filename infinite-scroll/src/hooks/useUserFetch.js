@@ -1,7 +1,12 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-const useUserFetch = (userId, pageNumber) => {
+const api = axios.create({
+  baseURL:
+    "http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com/user/",
+});
+
+const useUserFetch = (userId, pageNumber = 1) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [hasMore, setHasMore] = useState(false);
@@ -12,10 +17,8 @@ const useUserFetch = (userId, pageNumber) => {
   useEffect(() => {
     setLoading(true);
     setError(false);
-    axios
-      .get(
-        `http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com/user/${userId}`
-      )
+    api
+      .get(`${userId}`)
       .then((res) => {
         setUser(res.data);
         setLoading(false);
@@ -25,10 +28,8 @@ const useUserFetch = (userId, pageNumber) => {
         setLoading(false);
       });
 
-    axios
-      .get(
-        `http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com/user/${userId}/friends/${pageNumber}/10`
-      )
+    api
+      .get(`/${userId}/friends/${pageNumber}/10`)
       .then((res) => {
         setHasMore(res.data.list.length > 0);
         setLoading(false);

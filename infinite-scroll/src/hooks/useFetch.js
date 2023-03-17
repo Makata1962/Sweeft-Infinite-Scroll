@@ -1,6 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+const api = axios.create({
+  baseURL:
+    "http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com/user/",
+});
+
 const useFetch = (pageNumber) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -10,11 +15,8 @@ const useFetch = (pageNumber) => {
   useEffect(() => {
     setLoading(true);
     setError(false);
-    axios({
-      method: "GET",
-      url: `http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com/user/${pageNumber}/10`,
-      params: { page: pageNumber },
-    })
+    api
+      .get(`${pageNumber}/10`)
       .then((res) => {
         setCards((prevCards) => {
           return [...new Set([...prevCards, ...res.data.list])];

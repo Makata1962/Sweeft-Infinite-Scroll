@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import { useParams } from "react-router-dom";
 import useUserFetch from "../hooks/useUserFetch";
 import FriendList from "./FriendList";
+import Loading from "./Loading";
 import "./UserDetails.style.css";
 
 const UserDetails = () => {
@@ -9,7 +10,7 @@ const UserDetails = () => {
   const { loading, error, user } = useUserFetch(userId);
 
   if (loading) {
-    return <div className="user-details">Loading...</div>;
+    return <Loading />;
   }
 
   if (error) {

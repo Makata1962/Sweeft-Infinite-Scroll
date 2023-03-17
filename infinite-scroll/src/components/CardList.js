@@ -2,6 +2,7 @@ import React, { useState, useRef, useCallback } from "react";
 import "./CardList.style.css";
 import useFetch from "../hooks/useFetch";
 import { Link } from "react-router-dom";
+import Loading from "./Loading";
 
 const CardList = () => {
   const [pageNumber, setPageNumber] = useState(1);
@@ -28,7 +29,7 @@ const CardList = () => {
       {cards.map((card, index) => {
         if (cards.length === index + 1) {
           return (
-            <Link to={`/user/${card.id}`} key={index}>
+            <Link to={`/user/${card.id}`} key={index} className="card_link">
               <div ref={lastCardElementRef} className="card" key={index}>
                 <img src={card.imageUrl} alt={card.title} />
                 <h3>{card.title}</h3>
@@ -38,7 +39,7 @@ const CardList = () => {
           );
         } else {
           return (
-            <Link to={`/user/${card.id}`} key={index}>
+            <Link to={`/user/${card.id}`} key={index} className="card_link">
               <div className="card" key={index}>
                 <img src={card.imageUrl} alt={card.title} />
                 <h3>{card.title}</h3>
@@ -48,8 +49,8 @@ const CardList = () => {
           );
         }
       })}
-      {loading && <div>Loading...</div>}
-      {error && <div>Error...</div>}
+      {loading && <Loading />}
+      {error && <div className="error">Error...</div>}
     </div>
   );
 };

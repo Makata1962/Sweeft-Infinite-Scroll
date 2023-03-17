@@ -36,3 +36,18 @@
   font-size: 1rem;
   color: #777;
 }
+
+.card_link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100px;
+  font-size: 1.2rem;
+  color: #777;
+}

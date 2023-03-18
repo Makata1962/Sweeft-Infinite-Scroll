@@ -1,6 +1,6 @@
-import CardList from "./components/CardList";
+import CardList from "./components/CardList/CardList";
 import { Routes, Route } from "react-router-dom";
-import UserDetails from "./components/UserDetails";
+import UserDetails from "./components/UserDetails/UserDetails";
 
 function App() {
   return (

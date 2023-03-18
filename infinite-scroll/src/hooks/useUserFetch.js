@@ -12,7 +12,6 @@ const useUserFetch = (userId, pageNumber = 1) => {
   const [hasMore, setHasMore] = useState(false);
   const [user, setUser] = useState(null);
   const [friends, setFriends] = useState([]);
-  console.log(userId, "userId", pageNumber, "pageNumber");
 
   useEffect(() => {
     setLoading(true);

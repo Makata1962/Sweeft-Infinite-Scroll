@@ -1,8 +1,8 @@
 import React, { useState, useRef, useCallback } from "react";
-import "./CardList.style.css";
-import useFetch from "../hooks/useFetch";
+import classes from "./CardList.module.scss";
+import useFetch from "../../hooks/useFetch";
 import { Link } from "react-router-dom";
-import Loading from "./Loading";
+import Loading from "../Loading/Loading";
 
 const CardList = () => {
   const [pageNumber, setPageNumber] = useState(1);
@@ -25,13 +25,25 @@ const CardList = () => {
   );
 
   return (
-    <div className="card_list">
+    <div className={classes.card_list}>
       {cards.map((card, index) => {
         if (cards.length === index + 1) {
           return (
-            <Link to={`/user/${card.id}`} key={index} className="card_link">
-              <div ref={lastCardElementRef} className="card" key={index}>
-                <img src={card.imageUrl} alt={card.title} />
+            <Link
+              to={`/user/${card.id}`}
+              key={index}
+              className={classes.card_link}
+            >
+              <div
+                ref={lastCardElementRef}
+                className={classes.card}
+                key={index}
+              >
+                <img
+                  src={card.imageUrl}
+                  alt={card.title}
+                  className={classes["card-img"]}
+                />
                 <h3>{card.title}</h3>
                 <p>{card.description}</p>
               </div>
@@ -39,9 +51,17 @@ const CardList = () => {
           );
         } else {
           return (
-            <Link to={`/user/${card.id}`} key={index} className="card_link">
-              <div className="card" key={index}>
-                <img src={card.imageUrl} alt={card.title} />
+            <Link
+              to={`/user/${card.id}`}
+              key={index}
+              className={classes.card_link}
+            >
+              <div className={classes.card} key={index}>
+                <img
+                  src={card.imageUrl}
+                  alt={card.title}
+                  className={classes["card-img"]}
+                />
                 <h3>{card.title}</h3>
                 <p>{card.description}</p>
               </div>
@@ -50,7 +70,7 @@ const CardList = () => {
         }
       })}
       {loading && <Loading />}
-      {error && <div className="error">Error...</div>}
+      {error && <div className={classes.error}>Error...</div>}
     </div>
   );
 };
